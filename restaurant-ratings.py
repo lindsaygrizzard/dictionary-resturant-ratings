@@ -1,11 +1,12 @@
 import random
+
 def ratings_guide(filename):
     filename = open(filename)
     resturant_dic = {}
 
     for line in filename:
         line = line.rstrip().split(":")
-        resturant_dic[line[0]] = int(line[1])
+        resturant_dic[line[0]] = float(line[1])
 
     quit_program = False
 
@@ -16,9 +17,9 @@ def ratings_guide(filename):
             or quit, %s (add, edit, or quit) """ %(name))
 
         if choice.lower() == "add":
-            add_ratings(filename, resturant_dic)
+            restaurant_dic = add_ratings(filename, resturant_dic)
         elif choice.lower() == "edit":
-            change_rating(filename, resturant_dic)
+            restaurant_dic = change_rating(filename, resturant_dic)
         elif choice.lower() == "quit":
             quit_program = True
             print "Bye bye, %s" % (name)
@@ -30,7 +31,7 @@ def add_ratings(filename, full_dic):
 
     while not quit:
         new_rst = raw_input("Enter a resturant: ").title()
-        new_rting = int(raw_input("Please enter a rating: "))
+        new_rting = float(raw_input("Please enter a rating: "))
 
         full_dic[new_rst] = new_rting
 
@@ -41,19 +42,19 @@ def add_ratings(filename, full_dic):
 
         if go_on.lower() == "no":
             quit = True
+            return full_dic
 
 def change_rating(filename, full_dic):
     quit_edit = False
     while not quit_edit:
-        dic_length = len(full_dic)
-        dic_key_arr = [i for i in full_dic]
-        random_num = random.randint(0, dic_length)
-        random_resturant = dic_key_arr[random_num]
+        # dic_length = len(full_dic)
+        # dic_key_arr = [i for i in full_dic]
+        # random_num = random.randint(0, dic_length)
+        # random_resturant = dic_key_arr[random_num]
 
-        # remove this key
-        full_dic.pop(random_resturant)
-        
-        changed_rting = int(raw_input("What is your new rating for %s: " %random_resturant))
+        random_resturant = random.choice(full_dic.keys())
+
+        changed_rting = float(raw_input("What is your new rating for %s: " %random_resturant))
 
         full_dic[random_resturant] = changed_rting  
 
@@ -63,6 +64,7 @@ def change_rating(filename, full_dic):
 
         if go_on.lower() == "no":
             quit_edit = True
+            return full_dic
 
 
 def print_ratings(full_dic):
