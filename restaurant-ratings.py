@@ -20,7 +20,10 @@ def add_ratings(filename):
 
         print_ratings(srt_resturant, resturant_dic)
 
-        quit = True
+        go_on = raw_input("Do you want to enter another resturant? (yes or no) ")
+
+        if go_on.lower() == "no":
+            quit = True
 
 def print_ratings(user_list, full_dic):
     # loop over the srt_resturant list and print out name and rating of each
