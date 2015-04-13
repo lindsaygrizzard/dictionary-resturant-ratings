@@ -1,19 +1,32 @@
 # your code goes here
-def ratings(filename):
+def add_ratings(filename):
     filename = open(filename)
     resturant_dic = {}
+    quit = False
 
-    # turn file into a dictionary
-    for line in filename:
-        line = line.rstrip().split(":")
-        resturant_dic[line[0]] = int(line[1])
+    while not quit:
+        # turn file into a dictionary
+        for line in filename:
+            line = line.rstrip().split(":")
+            resturant_dic[line[0]] = int(line[1])
 
-    # turn the keys or resturant_dic into a sorted list
-    srt_resturant = sorted(resturant_dic.keys())
+        new_rst = raw_input("Enter a resturant: ").title()
+        new_rting = int(raw_input("Please enter a rating: "))
 
+        resturant_dic[new_rst] = new_rting
+
+        # turn the keys or resturant_dic into a sorted list
+        srt_resturant = sorted(resturant_dic.keys())
+
+        print_ratings(srt_resturant, resturant_dic)
+
+        quit = True
+
+def print_ratings(user_list, full_dic):
     # loop over the srt_resturant list and print out name and rating of each
     # resturant in alphabetical order
-    for key in srt_resturant:
-        print "%s is rated at %d" %(key, resturant_dic[key])
+    for key in user_list:
+        print "%s is rated at %d" %(key, full_dic[key])
 
-print(ratings("scores.txt"))
+
+add_ratings("scores.txt")
